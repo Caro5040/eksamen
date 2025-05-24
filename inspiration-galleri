@@ -1,0 +1,139 @@
+function custom_masonry_gallery_url() {
+  $image_urls = [
+'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/faf81f36-43f6-4bd3-bbce-fb45abb978af.jpeg',
+        'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/How-to-Style-a-Camel-Blazer-_-Outfit-Ideas-For-Any….jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/Spanish-style-clothing-outfits-inspo-trendy…-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/f3662d24-1697-41c0-8704-54dc98c19891.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/e94ee1e9-69c4-42e2-b7bc-97dd846ec602.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/e5f919f2-eed4-4d4e-bd5b-b8aef0540cd8.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/d652805c-198d-4dd0-bff9-eaeda535d7d0-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/d3e5b1d7-6b93-48da-946b-67c53337cb98-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/21855865-7ea3-46eb-85c1-e54254cc747d.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/b9f60ac6-d021-4906-8869-dba1d142a34e-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/c1e759f5-6cc4-42d9-a099-a7d656ecb34e.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/cc0ca5e3-46ef-4c34-a3bb-017f4efdb7b6.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/6783a02e-928c-42d7-baaa-de0427d2642e.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/1557c964-529a-4267-91ec-c4bbb6c2ee9e.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/64fad7c5-e3bd-4930-8492-b3ccde1c30d4.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/9e014ede-bf7c-4d4c-a9d1-9678c7e3dfc3.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/6f48c749-c4f5-4277-bf59-f19aa212aea8.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/2e40506b-a88a-44a2-8655-f5aab02680b6.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/4f3ba406-ad9e-4638-9101-c7ad8cde5dc0-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/6b945dca-d9e2-49d4-90c4-ca14021d57e5-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/6e3bec06-b3aa-485b-8cb4-bef3fa7c0559-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/@moodykendall.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/@americanstyle-1.jpeg',
+		'https://2sem-eksamen.cahastudio.dk/wp-content/uploads/2025/05/0abd7f3d-9346-40ba-b1c1-4486e15a38fd.jpeg'
+  ];
+
+  ob_start();
+  ?>
+  <div class="custom-masonry-gallery">
+    <?php foreach ($image_urls as $index => $url) : ?>
+      <div class="masonry-item">
+        <a href="<?php echo esc_url(site_url('/single-image') . '?img=' . urlencode($url)); ?>">
+          <img src="<?php echo esc_url($url); ?>" alt="Image <?php echo $index + 1; ?>" />
+        </a>
+        <button class="like-btn" onclick="likeImage(<?php echo $index; ?>, event)">❤️</button>
+        <div class="like-count" id="like-count-<?php echo $index; ?>">1356</div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <style>
+    /* Samme styling som før, bare fjernet modal og klik-popup */
+    body {
+      margin: 0;
+    }
+    .custom-masonry-gallery {
+      column-count: 5;
+      column-gap: 16px;
+      padding: 16px;
+      width: 100vw;
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+    .masonry-item {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 16px;
+      position: relative;
+      break-inside: avoid;
+    }
+    .masonry-item img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+    .like-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 2;
+    }
+    .like-btn:hover {
+      background: rgba(255, 100, 100, 0.9);
+    }
+    .like-count {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 2px 6px;
+      font-size: 12px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    @media (max-width: 1024px) {
+      .custom-masonry-gallery {
+        column-count: 3;
+      }
+    }
+    @media (max-width: 768px) {
+      .custom-masonry-gallery {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 480px) {
+      .custom-masonry-gallery {
+        column-count: 1;
+      }
+    }
+  </style>
+
+  <script>
+    // Ligesom før: Like-funktion, men uden modal
+    function likeImage(index, event) {
+      event.stopPropagation();
+      const key = `liked_image_${index}`;
+      if (localStorage.getItem(key)) return;
+      const countEl = document.getElementById(`like-count-${index}`);
+      const current = parseInt(countEl.textContent) || 0;
+      countEl.textContent = current + 1;
+      localStorage.setItem(key, true);
+    }
+
+    // Når siden loader, opdater likes fra localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      <?php foreach ($image_urls as $index => $url) : ?>
+        const key<?php echo $index; ?> = `liked_image_<?php echo $index; ?>`;
+        if(localStorage.getItem(key<?php echo $index; ?>)) {
+          const el = document.getElementById(`like-count-<?php echo $index; ?>`);
+          if(el) {
+            el.textContent = parseInt(el.textContent) + 1;
+          }
+        }
+      <?php endforeach; ?>
+    });
+  </script>
+  <?php
+  return ob_get_clean();
+}
+add_shortcode('custom_masonry_gallery_url', 'custom_masonry_gallery_url');
